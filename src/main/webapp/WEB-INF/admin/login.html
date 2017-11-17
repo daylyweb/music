@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8">
+      <title>login...</title>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style type="text/css">
+        body{
+            background-color: #34827d;
+            text-align: center;
+        }
+        input[type=password],input[type=text]{
+            display:inline-block;
+            padding: 10px 10px;
+            margin: 10px auto;
+            background: rgba(185, 185, 185, 0.15);
+            border:1px solid rgba(208, 208, 208, 0.33);
+            font-family: "Arial","Microsoft YaHei","黑体","宋体","sans-serif";
+            text-shadow: 0 1px 2px rgba(0,0,0,.1);
+            box-shadow: 0 2px 3px 0 rgba(0,0,0,.1) inset;
+            font-size: 15px;
+            border-radius: 3px;
+            color: #fff;
+        }
+        input[type=submit]{
+            display: inline-block;
+            width: 205px;
+            padding: 10px 15px;
+            padding: 10px 0px;
+            background: #569c8d;
+            border: none;
+            color: #fff;
+            font-size: initial;
+            margin: 5px auto;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        ::-moz-placeholder{
+            color: #fff;
+        }
+        :-moz-placeholder{
+            color: #fff;
+        }
+        ::-webkit-input-placeholder{
+            color: #fff;
+        }
+        :-ms-input-placeholder{
+            color: #fff;
+        }
+        .container{
+            height: 230px;
+            width:300px;
+            margin:auto auto;
+            text-align: center;
+        }
+        .container h1{
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 50px;
+            font-size: 20px;
+            color: #fff;
+            font-weight: 500;
+            font-family: "Arial","Microsoft YaHei","黑体","宋体","sans-serif";
+        }
+      </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>音乐后台系统</h1>
+            <form action="" method="post">
+                <input type="text" name="username"  placeholder="用户名" required="required" onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')"/>
+                <input type="password" name="password"  placeholder="密码" required="required" onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')"/>
+                <input type="submit" value="登录" />
+                
+            </form>
+        </div>
+    </body>
+    <script type="text/javascript">
+        var setTop = function(){
+            var clientheight = window.innerHeight || document.body.clientHeight;
+            var dom = document.getElementsByClassName("container").item(0);
+            var cheight = dom.clientHeight;
+            if (clientheight>cheight) {
+                dom.style.margin=(clientheight-cheight)/2+"px auto"; 
+            } else {
+                dom.style.margin='auto auto';
+            }
+        }
+        window.addEventListener("resize",setTop,false);
+        setTop();
+    </script>
+</html>

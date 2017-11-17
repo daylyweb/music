@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="1800">
+	<properties>
+		<property name="LOG_HOME">${log4j:configParentLocation}/../../logs</property>
+	</properties>
+	<Loggers>
+		<logger name="org.spring" level="ERROR" additivity="false">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="spring" />
+        </logger>
+		<Logger name="com.daylyweb.music" level="INFO" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="debug" />
+			<AppenderRef ref="info2db"/>
+			<AppenderRef ref="error" />
+		</Logger>
+		<Root level="DEBUG">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="debug" />
+			<AppenderRef ref="error" />
+		</Root>
+	</Loggers>
+	<Appenders>
+	
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+		
+		<RollingRandomAccessFile name="debug" fileName="${LOG_HOME}/debug.log" filePattern="${LOG_HOME}/debug-%d{yyyy-MM-dd}.log" append="true">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-3level %msg %n"></PatternLayout>
+			<Policies>  
+            	<TimeBasedTriggeringPolicy interval="1" modulate="true" />  
+            </Policies>
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+		</RollingRandomAccessFile>
+		
+		<RollingRandomAccessFile name="error" fileName="${LOG_HOME}/error.log" filePattern="${LOG_HOME}/error-%d{yyyy-MM-dd}.log" append="true">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-3level %l %msg %r%n"></PatternLayout>
+			<Policies>  
+            	<TimeBasedTriggeringPolicy interval="1" modulate="true" />  
+            </Policies>
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+		</RollingRandomAccessFile>
+		
+		<RollingRandomAccessFile name="spring" fileName="${LOG_HOME}/spring.log" filePattern="${LOG_HOME}/spring-%d{yyyy-MM-dd}.log" append="true">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-3level %l %msg %r%n"></PatternLayout>
+			<Policies>  
+            	<TimeBasedTriggeringPolicy interval="1" modulate="true" />  
+            </Policies>
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+		</RollingRandomAccessFile>
+		
+		<JDBC name="info2db" tableName="log_info" bufferSize="10">
+			<ConnectionFactory class="com.daylyweb.music.utils.ConnectionFactory" method="getDataSource" />
+			<Column name="time" isEventTimestamp="true" />
+			<Column name="info" pattern="%msg" />
+			<Filters> 
+				<ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>
+	            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+	        </Filters>
+		</JDBC>
+		
+ 		<Async name="asyncDatabaseAppender">
+			<appender-ref ref="info2db"/>
+		</Async>
+		<DefaultRolloverStrategy max="20"/>
+	</Appenders>
+</Configuration>

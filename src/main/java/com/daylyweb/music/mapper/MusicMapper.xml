@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.daylyweb.music.dao.MusicDao" >
+	<cache/>
+  <resultMap id="BaseResultMap" type="com.daylyweb.music.mapper.Music" >
+    <id column="songid" property="songid" jdbcType="INTEGER" />
+    <result column="songmid" property="songmid" jdbcType="VARCHAR" />
+    <result column="songname" property="songname" jdbcType="VARCHAR" />
+    <result column="singer" property="singer" jdbcType="VARCHAR" />
+    <result column="albumname" property="albumname" jdbcType="VARCHAR" />
+    <result column="albummid" property="albummid" jdbcType="VARCHAR" />
+    <result column="commend" property="commend" jdbcType="CHAR" />
+    <result column="keyword" property="keyword" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<cache />
+	
+  <sql id="Base_Column_List" >songid, songmid, songname, singer, albumname,albummid,commend,keyword</sql>
+  
+  <!-- 通过songid获取音乐 -->
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from music_list where songid = #{songid,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 获取音乐 --> <!-- 传入map 如果有commend则取commend 通常只有'Y' 和 'N' 如果有start和limit且都不等于0 表示分页-->
+  <select id="select" parameterType="Map" resultMap="BaseResultMap" useCache="false">
+  	select SQL_CALC_FOUND_ROWS * from music_list <if test="commend!=null">where commend=#{commend,jdbcType=CHAR}</if>
+    <if test="start >=0 and limit>0" >
+    limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <!-- 模糊查询 -->
+  <select id="fuzzyQuery" parameterType="Map" resultMap="BaseResultMap" useCache="false">
+	  	select SQL_CALC_FOUND_ROWS * from music_list WHERE CONCAT_WS("",songid,songmid,songname,albumname,singer) LIKE CONCAT("%",#{keyword,jdbcType=CHAR},"%")
+	  	<if test="commend!=null">and commend=#{commend,jdbcType=CHAR}</if>
+	  	<if test="start >=0 and limit>0" >
+	    limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+	    </if>
+  </select>
+  
+  <!-- 获取上次查询的总数 -->
+  <select id="getLastCount" useCache="false" resultType="java.lang.Integer">
+	  	SELECT FOUND_ROWS()
+  </select>
+  
+  <!-- 批量删除 -->
+   <delete id="deleteByIds" parameterType="java.lang.String">
+		delete from music_list where songid in (${_parameter})
+  </delete>
+  
+  <!-- 关键词是否存在 -->
+  <select id="getKeywordCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+  		select count(1) FROM music_list where keyword REGEXP ".*${_parameter},*"
+  </select>
+  
+  <!-- 添加音乐 -->
+  <insert id="insert" parameterType="com.daylyweb.music.mapper.Music" >
+    insert into music_list (<include refid="Base_Column_List" />)
+    values (#{songid,jdbcType=INTEGER}, #{songmid,jdbcType=VARCHAR}, #{songname,jdbcType=VARCHAR}, 
+      #{singer,jdbcType=VARCHAR},#{albumname,jdbcType=VARCHAR},#{albummid,jdbcType=VARCHAR},#{commend,jdbcType=CHAR}, #{keyword,jdbcType=VARCHAR})
+	<!-- ON DUPLICATE KEY UPDATE keyword=(SELECT newkeyword FROM (SELECT CONCAT_WS(",",keyword,#{keyword,jdbcType=VARCHAR}) as newkeyword FROM music_list WHERE songid=#{songid,jdbcType=INTEGER}) newkeyword) -->
+  	  ON DUPLICATE KEY UPDATE keyword=CONCAT_ws(",",(SELECT new FROM (SELECT keyword as new from music_list where songid=#{songid,jdbcType=INTEGER}) temp),VALUES(keyword))
+  </insert>
+  
+  <!-- 批量添加音乐 -->
+  <insert id="insertByBatch" parameterType="java.util.List">
+  	insert into music_list (<include refid="Base_Column_List" />)
+  	values
+  	<foreach collection="list" item="item" index="index" separator=",">
+          (#{item.songid,jdbcType=INTEGER}, #{item.songmid,jdbcType=VARCHAR}, #{item.songname,jdbcType=VARCHAR}, #{item.singer,jdbcType=VARCHAR}, #{item.albumname,jdbcType=VARCHAR},
+	      #{item.albummid,jdbcType=VARCHAR},#{item.commend,jdbcType=CHAR}, CONCAT_WS(",",(SELECT new FROM(SELECT music_list.keyword as new FROM music_list WHERE music_list.songid=#{item.songid,jdbcType=INTEGER}) TEMP),#{item.keyword,jdbcType=VARCHAR}))
+    </foreach>
+     ON DUPLICATE KEY UPDATE keyword=VALUES(keyword)
+  </insert>
+  
+  <!-- 更新音乐数据 -->
+  <update id="update" parameterType="com.daylyweb.music.mapper.Music">
+  	update music_list
+  	<set >
+      <if test="songmid != null" >
+        songmid = #{songmid,jdbcType=VARCHAR},
+      </if>
+      <if test="songname != null" >
+        songname = #{songname,jdbcType=VARCHAR},
+      </if>
+      <if test="singer != null" >
+        singer = #{singer,jdbcType=VARCHAR},
+      </if>
+      <if test="albumname != null" >
+        albumname = #{albumname,jdbcType=VARCHAR},
+      </if>
+      <if test="commend != null" >
+        commend = #{commend,jdbcType=CHAR},
+      </if>
+      <if test="albummid != null" >
+        albummid = #{albummid,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null" >
+        keyword = #{keyword,jdbcType=VARCHAR},
+      </if> 
+    </set>
+    where songid = #{songid,jdbcType=INTEGER}
+  </update>
+  
+  <update id="setCommend" parameterType="java.lang.String">
+  		update music_list set commend='Y' where songid in(${_parameter})
+  </update>
+  
+  <update id="unCommend" parameterType="java.lang.String">
+  		update music_list set commend='N' where songid in(${_parameter})
+  </update>
+</mapper>

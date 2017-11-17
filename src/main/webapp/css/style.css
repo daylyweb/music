@@ -1,0 +1,171 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+html{
+	background-color:rgba(190, 193, 192, 0.35);
+	background-size: cover;
+	font-size: 15px;
+	overflow:visible;
+}
+body{
+	text-align: center;
+	position: relative;
+	font-family: Helvetica,sans-serif,SimSun;
+}
+header{
+	width: 100%;
+	background-color:rgb(226, 226, 226);
+	height: 3.5rem;
+	color:#666;
+	line-height: 3.5rem;
+	position: fixed;
+	top:0;
+}
+footer{
+	position: fixed;
+	height: 3.5rem;
+	background-color:rgb(226, 226, 226);
+	line-height: 3.5rem;
+	width: 100%;
+	bottom: 0;
+}
+footer li{
+	width: 33.3%;
+	float:left;
+	list-style: none;
+	box-sizing:border-box;
+}
+footer li:nth-child(2){
+	border-color: #fff;
+}
+.iconfont{
+	font-size: 1.5rem;
+}
+#info{
+	width: 100%;
+	height: 10rem;
+	line-height: 10rem;
+        margin-top: 3.5rem;
+}
+
+#albumimg{
+	width:7rem; /*8*/
+	height:7rem;
+	border-radius: 10rem;
+	vertical-align:middle;
+}
+#tag > *{
+	display: block;
+  text-overflow: ellipsis;
+  color: #000;
+  margin-top: 0.5rem;
+  line-height: 1rem;
+}
+#lyric{
+  height:20rem;
+  overflow:hidden;
+  margin-top:1rem;
+}
+#slide{
+	transform:translateY(9rem);
+}
+#slide p{
+  line-height: 3rem;
+  font-weight: 500;
+}
+.now{
+	color: rgb(179, 38, 38);
+}
+.selected{
+	background-color:rgb(218, 218, 218); 
+}
+#control{
+  float: right;
+  width:13rem; /*15*/
+  height:8rem;
+  margin-top: 1rem;
+}
+
+#ctrl{
+  height: 5rem;
+  line-height: 5rem;
+  font-size: 1.3rem;
+}
+#ctrl > * {
+  display: inline-block;
+  margin: auto 1rem;
+}
+.search-top{
+    width: 100%;
+    height: 4rem;
+    top:0;
+    position: fixed;
+    border-bottom: 1px solid;
+    border-bottom-color: rgba(146, 111, 55, 0.29);
+    background-color:rgb(236, 235, 235);
+    display: none;
+}
+.search-group{
+    line-height: 3rem;
+    margin-top: 0.4rem;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 3rem;
+    border:1px solid #545a2e;
+}
+.top-icon{
+	/*margin-left: 5%;*/
+}
+input[type=search] {
+    border-radius: 3px;
+    border-width: 0px;
+    height: 3rem;
+    text-align: center;
+    background-color:transparent;
+    width: 80%;
+	margin: 0 0 0 5%;
+    font-size: 1.1rem;
+}
+#searchbtn{
+	float: right;
+	margin-right: 5%;
+
+}
+#search ul,#playlist ul{
+	margin-top: 4rem;
+ 	padding-bottom: 3.5rem;
+}
+#search ul li,#playlist ul li{
+	height: 4rem;
+	line-height: 4rem;
+	border-bottom: 1px solid ;
+	border-bottom-color: rgba(146, 111, 55, 0.29);
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.playing,.isfav{
+	color:rgb(179, 38, 38);
+}
+.icon-jiarugedan,.icon-yichu{
+	font-size: 2rem;
+	float: right;
+	margin-right: 1rem;
+}
+.icon-tishi{
+	float:right;
+	margin-right:1rem;
+}
+.icon-fankui{
+	float:left;
+	margin-left:1rem;
+}
+.icon-dianzan{
+	float:right;
+	margin-right:1rem;
+}
+.iszan{
+	color: red;
+}

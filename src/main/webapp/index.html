@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>音乐播放器</title>
+	<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_zxct4emvvrhpvi.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/landscape.css" media="screen and (orientation : landscape )" > 
+	<link rel="shortcut icon" href="favicon.ico" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta charset="utf-8">
+	<meta name="description" content="A web musicplayer for mobile.">
+    <meta name="author" content="丶Tik">
+    <meta name="keyword" content="Tik,音乐播放器">
+	<style>
+		.title{
+			background-color:rgba(129, 158, 114, 0.69);
+			height:3rem;
+			line-height:3rem;
+			text-align:center;
+			color: white;
+			border-radius: 0.5rem 0.5rem 0 0;
+			font-size: 1.2rem;
+		}
+		.tips{
+			
+			border-radius: 0.5rem!important;
+			width:85%;
+		}
+		.tips p{
+			text-align: center;
+			font-size: 1.2rem;
+			line-height: 2rem;
+		}
+		.tips li{
+			font-size: 1.1rem;
+			line-height: 2rem;
+			list-style: none;
+		}
+		.iszan{
+			color: #c16262;
+		}
+		input{
+            border: 1px solid #ccc; 
+            padding: 0.5rem 0;
+            border-radius: 0.2rem;
+            padding-left:0.3rem; 
+        }
+        textarea{
+        	border: 1px solid #ccc; 
+            padding: 0.5rem 0;
+            border-radius: 0.2rem;
+            padding-left:0.3rem; 
+            width: 16rem;
+    		height: 10rem;
+        }
+        form{
+        	margin: 0 auto;
+        	text-align: center;
+        	line-height: 2.8rem;
+        }
+        .btn {
+		    display: inline-block;
+		    line-height: 2.3rem;
+		    padding: 0 1rem;
+		    background-color: #009688;
+		    color: #fff;
+		    white-space: nowrap;
+		    text-align: center;
+		    font-size: 1rem;
+		    border: none;
+		    border-radius: 0.3rem;
+		    cursor: pointer;
+		    opacity: .9;
+		    margin-bottom:1rem;
+		    margin-left: 0.8rem;
+		    appearance:none;
+			-moz-appearance:none;
+			-webkit-appearance:none;
+		}
+		input[type=text]{
+			width: 12rem;
+		}
+		@media screen and (orientation : landscape ){
+			.tips{
+				width:50%;
+			}
+			.fankui{
+				line-height: 1.5rem;
+			}
+			textarea{
+    				height: 3rem;
+			}
+			.btn{
+				line-height: 1.9rem;
+   				padding: 0 0.6rem;
+				font-size:initial;
+				margin-bottom:0.4rem;
+			}
+		}
+	</style>
+<body>
+	<header style="display: none">
+		<span class="iconfont icon-fankui"></span>
+		<strong>音乐播放</strong>
+		<span class="iconfont icon-dianzan" id="right"></span>
+	</header>
+	<section class="search-top" style="display:block">
+		<form class="search-group" onsubmit="return false">
+			<!-- <span class="iconfont icon-search top-icon"></span> -->
+			<input type="search" placeholder="歌曲/歌手名">
+			<span id="searchbtn" class="iconfont icon-search top-icon"></span>
+		</form>
+	</section>
+	<content id="player" style="display: none;">
+		<section id="info">
+			<img id="albumimg" src="images/music.jpg"></img>
+			<div id="control">
+				<section id="tag">
+					<strong></strong>
+					<span class="artist"></span>
+					<span class="album"></span>
+				</section>
+				<div id="ctrl">
+					<div class="iconfont icon-shangyishou"></div>
+					<div class="iconfont icon-bofang" id="playbtn"></div>
+					<div class="iconfont icon-xiayishou"></div>
+				</div>
+				<audio id="audio">
+				</audio>
+			</div>
+		</section>
+		<section id="lyric">
+			<div id="slide" style="transform:translateY(9rem);">
+				<p class="now">歌单暂无歌曲，快去搜索吧！</p>
+			</div>
+		</section>
+	</content>	<!--end of player-->
+	<content id="search" style="display:block">
+			<ul></ul>
+	</content>
+
+	<content id="playlist" style="display: none;">
+		<ul></ul>
+	</content>
+	<footer>
+		<ul>
+			<li class="iconfont icon-yinle"></li>
+			<li class="iconfont icon-sousuo selected"></li>
+			<li class="iconfont icon-gedan"></li>
+		</ul>
+	</footer>
+	<script type="text/javascript" src="js/lib/jquery.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/lib/layer_mobile/layer.js"></script>
+	<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+</body>
+</html>

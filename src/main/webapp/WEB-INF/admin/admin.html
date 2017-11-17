@@ -1,0 +1,628 @@
+<#assign ctx=request.contextPath />
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>admin</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <base id="ctx" href="${ctx}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="${ctx}/js/lib/layui/css/layui.css">
+        <link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_469747_dr33rk7q8xx8yqfr.css">
+        <style type="text/css">
+            header{
+                background-color: #2b655f!important;
+                text-align: center;
+            }
+            header .logo{
+                position: relative;
+                display: inline-block;
+                vertical-align: middle;
+                line-height: 60px;
+                font-size: 30px;
+                color:#fff!important;
+                font-weight: 500;
+                font-family: "Arial","Microsoft YaHei","黑体","宋体","sans-serif";
+                text-align: center;
+            }
+            .layui-nav .layui-nav-logo a{
+                font-size: 30px;
+                color:#fff!important;
+                font-weight: 500;
+                font-family: "Arial","Microsoft YaHei","黑体","宋体","sans-serif";
+            }
+            .layui-nav-tik{
+                background-color: #2b655f!important;
+            }
+            .layui-nav-tik .layui-nav-item a{
+                color:#d4d4d4;
+            }
+            .layui-nav-tik .layui-nav-child{
+                background-color: #2b655f;
+            }
+            .layui-side-tik{
+                background-color:#2b5a56!important;
+            }
+            .layui-side-tik .layui-nav-tik{
+                background-color: #2b5a56!important
+            }
+            .layui-side-tik .layui-this,.layui-side-tik .layui-this a{
+                background-color: #1da24b!important;
+            }
+            #openleft{
+                width: 40px;
+                height: 40px;
+                display: inline-block;
+                line-height: 40px;
+                background-color: #009688;
+                color: #fff;
+                white-space: nowrap;
+                text-align: center;
+                font-size: 25px;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+                position: fixed;
+                bottom: 60px;
+                left: 10px;
+                z-index: 11111111;
+                opacity: 0;
+            }
+            @keyframes openleft{
+                from {left:-150px;}
+                to {left:0px;}
+            }
+            @keyframes closeleft{
+                from {left:0px;}
+                to {left:-200px;}
+            }
+            @keyframes openleftbtn{
+                from {opacity: 0;}
+                to {opacity:0.8;}
+            }
+            @keyframes closeleftbtn{
+                from {opacity: 0.8;}
+                to {opacity: 0;}
+            }
+            @media screen and (max-width: 768px){
+                .layui-side-tik{
+                    top: 120px!important;
+                    width: 150px!important;
+                    left: -150px;
+                }
+                .layui-layout-admin .layui-body{
+                    top: 120px!important;
+                    left: 0!important;
+                }
+                .layui-side-tik .layui-side-scroll,.layui-side-tik .layui-nav-tree{
+                    width: 100%;
+                }
+                #openleft{
+                    opacity: 0.8;
+                }
+                .layui-layout-admin .layui-footer{
+                    left: 0px!important;
+                }
+            }
+            .tik-panel{
+                margin: 10px;
+                height:130px;
+                width: 95%;
+            }
+            .tik-panel .icon-bg{
+                width: 40%;
+                height: 100%;
+                float: left;
+                text-align: center;
+                border-radius: 6px
+            }
+            .tik-panel .icon-bg .iconfont,.tik-panel .icon-bg .layui-icon{
+                font-size:60px;
+                line-height:130px;
+                color: #fff;
+            }
+            .tik-panel .panel-message{
+                width: 60%;
+                height: 100%;
+                float: right;
+                background-color: #f2f2f2;
+                border-radius: 0 6px 6px 0;
+            }
+            .icon-bg-red{
+                background-color: #e47266;
+            }
+            .icon-bg-blue{
+                background-color: #54ade8;
+            }
+            .icon-bg-green{
+                background-color: #53e24a;
+            }
+            .icon-bg-darkgreen{
+                background-color: #23bf94;
+            }
+            .icon-bg-orange{
+                background-color: #e6b442;
+            }
+            .icon-bg-deepblue{
+                background-color: #667ce4;
+            }
+            .tik-panel .panel-message .message{
+                height: 50px;
+                margin: 15px auto;
+                text-align: center;
+                line-height: 50px;
+            }
+            .tik-panel .panel-message .message p{
+                font-weight: 700;
+                color: #3e3e3e;
+            }
+            .tik-panel .panel-message .message .count{
+                font-size: 30px;
+            }
+            .tik-panel .panel-message .message .tips{
+                font-size: 20px;
+            }
+        </style>
+    </head>
+    <body class="layui-layout-body">
+        <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+        <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <div class="layui-layout layui-layout-admin">   
+            <!-- 头部开始 -->
+            <header class="layui-row layui-fluid">
+                <a href="" class="logo layui-col-lg2 layui-col-lg-offset1 layui-col-xs8 layui-col-xs-offset2 layui-col-sm4 layui-col-sm-offset1 layui-col-md4 layui-col-md-offset1">Music Admin</a>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-sm-offset1 layui-col-md4 layui-col-md-offset3 layui-col-lg6 layui-col-lg-offset3">
+                    <ul class="layui-nav layui-nav-tik" lay-filter="head">
+                        <li class="layui-nav-item" lay-id='8'><a href="http://music.daylyweb.com" target="_blank">项目首页</a></li>
+                        <li class="layui-nav-item" lay-id='9'><a href="javascript:;">关于<span class="layui-badge-dot"></span></a></li>
+                        <li class="layui-nav-item">  <!-- https://gss0.bdstatic.com/6LZ1dD3d1sgCo2Kml5_Y_D3/sys/portrait/item/3d4e7177656164383436353230393733ef28 -->
+                            <a href="javascript:;"><img src="${login.head}" class="layui-nav-img">${login.nickname}</a>
+                            <dl class="layui-nav-child" style="z-index: 10000000;top: 60px;">
+                                <dd lay-id='10'><a href="javascript:;">修改密码</a></dd>
+                                <dd><a href="${ctx}/admin/out">退出</a></dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <!-- 头部结束 -->
+
+            <!-- 左侧导航条开始 -->
+            <div class="layui-side layui-side-tik">
+                <div class="layui-side-scroll">
+                    <ul class="layui-nav layui-nav-tik layui-nav-tree"  lay-filter="left">
+                        <li class="layui-nav-item layui-nav-itemed">
+                          <a href="javascript:;">系统</a>
+                          <dl class="layui-nav-child">
+                            <dd class="layui-this" lay-id="1"><a href="javascript:;"><i class="layui-icon" style="padding-right:10px;">&#xe68e;</i>首页</a></dd>
+                            <dd lay-id="2"><a href="javascript:;"><i class="layui-icon" style="padding-right:10px; ">&#xe620;</i>系统配置</a></dd>
+                          </dl>
+                        </li>
+                        <li class="layui-nav-item layui-nav-itemed">
+                          <a href="javascript:;">音乐管理</a>
+                          <dl class="layui-nav-child">
+                            <dd lay-id="3"><a href="javascript:;"><i class="layui-icon" style="padding-right:10px; ">&#xe6fc;</i>所有音乐</a></dd>
+                            <dd lay-id="4"><a href="javascript:;"><i class="layui-icon" style="padding-right:10px; ">&#xe600;</i>音乐推荐</a></dd>
+                          </dl>
+                        </li>
+                        <li class="layui-nav-item layui-nav-itemed">
+                          <a href="javascript:;">日志记录</a>
+                          <dl class="layui-nav-child">
+                            <dd lay-id="5"><a href="javascript:;"><i class="layui-icon" style="padding-right:10px; ">&#xe6c6;</i>点赞记录</a></dd>
+                            <dd lay-id="6"><a href="javascript:;"><i class="layui-icon" style="padding-right:10px; ">&#xe6b2;</i>反馈记录</a></dd>
+                            <dd lay-id="7"><a href="javascript:;"><i class="layui-icon" style="padding-right:10px; ">&#xe60e;</i>运行日志</a></dd>
+                          </dl>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 左侧导航条结束 -->
+
+            <!-- 右侧主体开始 -->
+            <div class="layui-body">
+                <div class="layui-tab  layui-tab-brief" lay-filter="tab" lay-allowclose="true" style="margin-top: 0">
+                    <ul class="layui-tab-title" style="background-color: whitesmoke">
+                        <li class="layui-this" lay-id="1">首页</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show" lay-id="1">
+                            <blockquote class="layui-elem-quote" style="font-size: larger;">Hello! ${login.nickname}，欢迎登录本音乐后台管理系统，上次登录时间：<font style="color: #9e22d2;">${Session["lasttime"]?string('yyyy-MM-dd hh:mm:ss')}</font>，上次登录IP：<font style="color: #9e22d2;">${Session["lastip"]}</font></blockquote>
+                            <hr class="layui-bg-green">
+                            <fieldset class="layui-elem-field ">
+                                <legend>今日数据：</legend>
+                                <div class="layui-field-box">
+                                    <div class="layui-row">
+                                        <div class="layui-col-md4 layui-col-lg4 layui-col-sm6 layui-col-xs12">
+                                            <div class="tik-panel">
+                                                <div class="icon-bg icon-bg-blue">
+                                                    <i class="iconfont icon-xinzengyonghu"></i>
+                                                </div>
+                                                <div class="panel-message">
+                                                    <div class="message">
+                                                        <p class="count">100</p>
+                                                        <p class="tips">今日新增用户</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md4 layui-col-lg4 layui-col-sm6 layui-col-xs12">
+                                            <div class="tik-panel">
+                                                <div class="icon-bg icon-bg-green">
+                                                    <i class="iconfont icon-fangwenliang"></i>
+                                                </div>
+                                                <div class="panel-message">
+                                                    <div class="message">
+                                                        <p class="count">1478</p>
+                                                        <p class="tips">今日访问量</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md4 layui-col-lg4 layui-col-sm6 layui-col-xs12">       
+                                            <div class="tik-panel">
+                                                <div class="icon-bg icon-bg-darkgreen">
+                                                    <i class="iconfont icon-tianjiayinle"></i>
+                                                </div>
+                                                <div class="panel-message">
+                                                    <div class="message">
+                                                        <p class="count">75</p>
+                                                        <p class="tips">今日新增音乐</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md4 layui-col-lg4 layui-col-sm6 layui-col-xs12">       
+                                            <div class="tik-panel">
+                                                <div class="icon-bg icon-bg-orange">
+                                                    <i class="iconfont icon-dianzan"></i>
+                                                </div>
+                                                <div class="panel-message">
+                                                    <div class="message">
+                                                        <p class="count">357</p>
+                                                        <p class="tips">今日点赞数</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md4 layui-col-lg4 layui-col-sm6 layui-col-xs12">       
+                                            <div class="tik-panel">
+                                                <div class="icon-bg icon-bg-deepblue">
+                                                    <i class="iconfont icon-fankui"></i>
+                                                </div>
+                                                <div class="panel-message">
+                                                    <div class="message">
+                                                        <p class="count">174</p>
+                                                        <p class="tips">今日反馈数</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md4 layui-col-lg4 layui-col-sm6 layui-col-xs12">       
+                                            <div class="tik-panel">
+                                                <div class="icon-bg icon-bg-red">
+                                                    <i class="layui-icon">&#xe611;</i>
+                                                </div>
+                                                <div class="panel-message">
+                                                    <div class="message">
+                                                        <p class="count">128</p>
+                                                        <p class="tips">今日新增评论</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <hr class="layui-bg-green">
+                            <div class="layui-row">
+                                <div class="layui-col-md6 layui-col-sm12 layui-col-xs12 layui-col-lg6">
+                                    <fieldset class="layui-elem-field">
+                                        <legend>系统概览：</legend>
+                                        <div class="layui-field-box">
+                                            <table class="layui-table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>当前版本</td>
+                                                        <td>1.0.0</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>开发作者</td>
+                                                        <td>丶Tik</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>运行环境</td>
+                                                        <td>Java(TM) SE Runtime Environment</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>JRE版本</td>
+                                                        <td>1.8.0_131-b11</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>服务器系统</td>
+                                                        <td>Windows Server 2012R2</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="layui-col-md6 layui-col-sm12 layui-col-xs12 layui-col-lg6">
+                                    <fieldset class="layui-elem-field">
+                                        <legend>站点概览：</legend>
+                                        <div class="layui-field-box">
+                                            <table class="layui-table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>站点域名</td>
+                                                        <td><a href="http://music.daylyweb.com">http://music.daylyweb.com</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>后台URL</td>
+                                                        <td><a href="http://music.daylyweb.com/admin">http://music.daylyweb.com/admin</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>站点描述</td>
+                                                        <td>小只个人音乐网站...</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>站点关键词</td>
+                                                        <td>音乐播放器，移动播放器</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>域名备案</td>
+                                                        <td>粤ICP备17120960</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <hr class="layui-bg-green">
+                            <blockquote class="layui-elem-quote layui-quote-nm">首页基本都是静态数据...只是为了美观...待实现...</blockquote>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-footer">
+                    @<a href="http://daylyweb.com ">小只个人站点 - daylyweb.com</a>  ©丶Tik
+                </div>
+            </div>
+            <!-- 右侧主体结束 -->
+        </div>
+            
+        <div id="openleft">
+            <i class="layui-icon">&#xe602;</i>
+        </div>
+    </body>
+    
+    <script type="text/html" id="musictoolbar">
+        <a class="layui-btn layui-btn-small layui-btn-normal" title="查看音乐相关信息" lay-event="view">查看</a>
+        {{#  if(d.commend == 'N'){ }}
+            <a class="layui-btn layui-btn-small" id='changebtn' title="将本首音乐设置为推荐" lay-event="setCommend">推荐</a>
+        {{#  } }}
+        {{#  if(d.commend == 'Y'){ }}
+            <a class="layui-btn layui-btn-small" id='changebtn' title="取消本音乐的推荐" lay-event="unCommend">取推</a>
+        {{#  } }}
+        <a class="layui-btn layui-btn-danger layui-btn-small" title="删除本首音乐数据" lay-event="del">删除</a>
+    </script>
+
+    <script type="text/html" id="commendtoolbar">
+        <a class="layui-btn layui-btn-small layui-btn-normal" title="查看音乐相关信息" lay-event="view">查看</a>
+        <a class="layui-btn layui-btn-small" title="取消本音乐的推荐" lay-event="unCommend">取推</a>
+    </script>
+
+    <script type="text/html" id="zantoolbar">
+        <a class="layui-btn layui-btn-danger layui-btn-small" title="删除本行数据" lay-event="del">删除</a>
+    </script>
+
+    <script type="text/html" id="feedbacktoolbar">
+        <a class="layui-btn layui-btn-danger layui-btn-small" title="删除本行数据" lay-event="del">删除</a>
+    </script>
+
+    <script type="text/html" id="musiccontent">
+        <table class="layui-table" id="musictable" lay-filter="music">
+            <blockquote class="layui-elem-quote">
+                <div class="layui-form layui-inline">
+                        <input type="text" name="musickeyword" required placeholder="歌曲/歌手/songid/专辑" class="layui-input" align="center" style="text-align: center;" title="请输入你要过滤的内容">
+                </div>
+                <a class="layui-btn layui-btn-primary" title="按条件查询数据" data-event="musicQuery">查询</a>
+                <a class="layui-btn layui-btn-normal" title="添加音乐数据" data-event="addMusic">添加</a>
+                <a class="layui-btn" title="选中行后批量设置推荐" data-event="setCommendBatch">批量推荐</a>
+                <a class="layui-btn layui-btn-danger" title="选中行后批量删除数据" data-event="musicDelBatch">批量删除</a>
+                <a class="layui-btn layui-btn-warm" title="按上次查询条件重新载入数据" data-event="musicReload">重载数据</a>
+            </blockquote>
+        </table>
+    </script>
+
+    <script type="text/html" id="commendcontent">
+        <table class="layui-table" id="commendtable" lay-filter="commend">
+            <blockquote class="layui-elem-quote">
+                <div class="layui-form layui-inline">
+                        <input type="text" name="commendkeyword" required placeholder="歌曲/歌手/songid/专辑" class="layui-input" align="center" style="text-align: center;" title="请输入你要过滤的内容">
+                </div>
+                <a class="layui-btn layui-btn-primary" title="按条件查询数据" data-event="commendQuery">查询</a>
+                <a class="layui-btn layui-btn-normal" title="添加推荐音乐" data-event="addCommend">添加</a>
+                <a class="layui-btn" title="选中行后批量取消推荐" data-event="unCommendBatch">批量取推</a>
+                <a class="layui-btn layui-btn-warm" title="按上次查询条件重新载入数据" data-event="commendReload">重载数据</a>
+            </blockquote>
+        </table>
+    </script>
+
+    <script type="text/html" id="zancontent">
+        <table class="layui-table" id="zantable" lay-filter="zan">
+            <blockquote class="layui-elem-quote layui-form">
+                    <div class="layui-input-inline">
+                        <input type="text" name="zankeyword" required lay-verify="required" placeholder="ID/IP/设备信息" autocomplete="off" class="layui-input" align="center" style="text-align: center;" title="请输入你要过滤的内容">
+                    </div>
+                    <div class="layui-input-inline" style="width: 200px;">
+                        <input type="text" class="layui-input" id="zanTimeFilter" placeholder="开始时间 - 结束时间" align="center" style="text-align: center;" readonly="true"/>
+                    </div>
+                    <a class="layui-btn layui-btn-primary" title="按条件查询数据" data-event="zanQuery">查询</a>
+                    <a class="layui-btn layui-btn-normal" title="选中行后批量删除数据" data-event="zanDelBatch">批量删除</a>
+                    <a class="layui-btn layui-btn-danger" title="清空所有的数据" data-event="zanClear">清空</a>
+                    <a class="layui-btn layui-btn-warm" title="按上次查询条件重新载入数据" data-event="zanReload">重载数据</a>
+            </blockquote>
+        </table>
+    </script>
+
+    <script type="text/html" id="feedbackcontent">
+        <table class="layui-table" id="feedbacktable" lay-filter="feedback">
+            <blockquote class="layui-elem-quote layui-form">
+                <div class="layui-inline">
+                    <input type="text" name="feedbackkeyword" required lay-verify="required" placeholder="你要查询的内容" autocomplete="off" class="layui-input" align="center" style="text-align: center;" title="请输入你要过滤的内容">
+                </div>
+                <div class="layui-input-inline" style="width: 200px;">
+                    <input type="text" class="layui-input" id="feedBackTimeFilter" placeholder="开始时间 - 结束时间" align="center" style="text-align: center;" readonly="true"/>
+                </div>
+                <a class="layui-btn layui-btn-primary" title="按条件查询数据" data-event="feedBackQuery">查询</a>
+                <a class="layui-btn layui-btn-normal" title="选中行后批量删除数据" data-event="feedBackDelBatch">批量删除</a>
+                <a class="layui-btn layui-btn-danger" title="清空所有的数据" data-event="feedBackClear">清空</a>
+                <a class="layui-btn layui-btn-warm" title="按上次查询条件重新载入数据" data-event="feedbackReload">重载数据</a>
+            </blockquote>
+        </table>
+    </script>
+
+    <script type="text/html" id="infocontent">
+        <table class="layui-table" id="infotable" lay-filter="info">
+            <blockquote class="layui-elem-quote layui-form">
+                <div class="layui-inline">
+                    <input type="text" name="infokeyword" required lay-verify="required" placeholder="你要查询的内容" autocomplete="off" class="layui-input" align="center" style="text-align: center;">
+                </div>
+                <div class="layui-input-inline" style="width: 200px;">
+                    <input type="text" class="layui-input" id="infoTimeFilter" placeholder="开始时间 - 结束时间" align="center" style="text-align: center;" readonly="true" />
+                </div>
+                <a class="layui-btn layui-btn-primary" title="按条件查询数据" data-event="infoQuery">查询</a>
+                <a class="layui-btn layui-btn-danger" title="清空所有的数据" data-event="infoClear">清空</a>
+                <a class="layui-btn layui-btn-warm" title="按上次查询条件重新载入数据" data-event="infoReload">重载数据</a>
+            </blockquote>
+        </table>
+    </script>
+
+    <script type="text/html" id="aboutcontent">
+        <div class="layui-row">
+            <div class="layui-col-md6 layui-col-sm12 layui-col-xs12 layui-col-lg6">
+                <fieldset class="layui-elem-field">
+                    <legend>关于项目</legend>
+                    <div class="layui-field-box">
+                        <p style="text-indent: 2em;font-size: 17px">因为本人特别喜欢听音乐，所以上学时就想着自己做一个音乐网站，然后想了很久都没动手，真正动手了发现自己什么都不懂，一切都得从头开始，目前上线的版本实现了一点点基础的后台功能，但是对于在我想法中的完整项目的功能还差得很远，需要自己一点一点完善了。</p>
+                        <p style="text-indent: 2em;font-size: 17px">
+                            想法中的项目：
+                            <ul style="text-indent: 4em;font-size: 17px">
+                                <li>1：使用vue完成前端PC+移动端双页面的实现</li>
+                                <li>2：包括但不限于“用户歌单，用户音乐分享平台，歌曲评论回复，系统对用户的消息回复，简单的音乐推荐推送”等功能</li>
+                                <li>3：完整的后台管理功能，如果有能力，希望后台管理能精细到项目中包括页面中个个小模块的控制管理</li>
+                            </ul>
+                        </p>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="layui-col-md6 layui-col-sm12 layui-col-xs12 layui-col-lg6">
+                <fieldset class="layui-elem-field">
+                    <legend>关于本人</legend>
+                    <div class="layui-field-box">
+                        <p style="text-indent: 2em;font-size: 17px">广东一位专科大三实习期的JAVA小白...技术不够经验不够目前在深圳待业...本来想把这个项目写的完完整整后当成一个小项目去投递简历，然而上手后发现自己完整实现并没有那么容易。</p>
+                        <p style="text-indent: 2em;font-size: 17px">不过没关系，既然想好了就能靠自己的双手敲出来，只是时间长短的问题，在实践中学习并沉淀！</p>
+                        <hr class="layui-bg-red">
+                        <p style="text-indent: 2em;font-size: 17px">如有幸能让HR查看我的简历并查看了本页内容，希望HR能给个实习的机会！</p>
+                        <hr class="layui-bg-red">
+                        <p style="text-indent: 2em;font-size: 17px;float: right;">@丶Tik</p>
+                        <br/>
+                        <br/>
+                    </div>
+                </fieldset>
+            </div>
+            <hr class="layui-bg-green">
+            <fieldset class="layui-elem-field layui-field-title layui-col-md6 layui-col-sm12 layui-col-xs12 layui-col-lg6">
+                <legend>版本更新</legend>
+                <div class="layui-field-box">
+                    <ul class="layui-timeline">
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <div class="layui-timeline-title">
+                                    <h2>V0.02</h2>
+                                    <span class="layui-badge-rim">未知数x</span>
+                                </div>
+                                <p>计划重构前台页面，完成PC+移动端双页面开发</p>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <div class="layui-timeline-title">
+                                    <h2>V0.01</h2>
+                                    <span class="layui-badge-rim">2017-11-28</span>
+                                </div>
+                                <p>个人音乐项目初版上线，实现了基础的后台功能</p>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </fieldset>
+            <fieldset class="layui-elem-field layui-field-title layui-col-md6 layui-col-sm12 layui-col-xs12 layui-col-lg6">
+                <legend>其他</legend>
+                <div class="layui-field-box">
+                    <blockquote class="layui-elem-quote">本页面基于：<a href="http://www.layui.com/" title="Layui - 经典模块化前端框架" target="_blank">Layui - 经典模块化前端框架</a></blockquote>
+                    <blockquote class="layui-elem-quote">项目源码Github：<a href="https://github.com/daylyweb/musicplayer" target="_blank" title="MusicPlayer - daylyweb.com">MusicPlayer - daylyweb.com</a></blockquote>
+                </div>
+            </fieldset>
+        </div>
+    </script>
+    <script type="text/html" id="changepasscontent">
+        <fieldset class="layui-elem-field">
+            <legend style="text-align: center;">修改密码：</legend>
+            <div class="layui-field-box">
+                <form class="layui-form layui-form-pane" style="width:90%;margin: 0 auto;">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">原密码：</label>
+                        <div class="layui-input-block">
+                          <input type="password" name="oldpass" required  lay-verify="requiredtwoConfirm" placeholder="请输入旧密码" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">新密码：</label>
+                        <div class="layui-input-block">
+                          <input type="password" name="newpass1" required  lay-verify="required|twoConfirm" placeholder="请输入新密码" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">确认新密码：</label>
+                        <div class="layui-input-block">
+                          <input type="password" name="newpass2" required  lay-verify="required|twoConfirm" placeholder="请确认新密码" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                          <button class="layui-btn" lay-submit lay-filter="changepass">立即提交</button>
+                          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+              </form>
+            </div>
+        </fieldset>
+    </script>
+
+    <script type="text/html" id="musicinfo">
+        <div style="width: 250px;height: 400px;background: #eaeaea;text-align: center;">
+            <img src="https://y.gtimg.cn/music/photo_new/T002R500x500M000{{ d.albummid }}.jpg" style="width: 180px;height: 180px;border: none;border-radius: 500px;margin: 10px 35px">
+            <section style="text-align: center;">
+                <p style="font-weight: 800;font-size: 20px">{{ d.songname }}</p>
+                <p style="font-size: 17px;padding-top: 5px">{{ d.singer }}</p>
+                <p style="font-size: 17px;padding-top: 5px">{{ d.albumname }}</p>
+            </section>
+            <div style="padding: 8px">
+                <a onclick="shiting('http://ws.stream.qqmusic.qq.com/{{ d.songid }}.m4a?fromtag=46',this);" class="layui-btn layui-btn-normal" title="播放此音乐">播放</a>
+                <a href="http://ws.stream.qqmusic.qq.com/{{ d.songid }}.m4a?fromtag=46" target="_blank" class="layui-btn" title="下载此音乐">下载</a>
+                <hr>
+                <a href="https://c.y.qq.com/v8/playsong.html?songmid={{ d.songmid }}" target="_blank" class="layui-btn layui-btn-warm" title="查看QQ音乐源链接">查看源链</a>
+                <a href="javascript:layer.msg('这个功能放这里很鸡肋...');" class="layui-btn layui-btn-danger" title="获取歌词文本">获取歌词</a>
+            </div>
+        </div>
+    </script>
+
+	<script type="text/javascript" src="${ctx}/js/config.js"></script>
+    <script type="text/javascript" src="${ctx}/js/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="${ctx}/js/admin.js"></script>
+</html>

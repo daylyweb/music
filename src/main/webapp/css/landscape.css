@@ -1,0 +1,53 @@
+header strong{
+	width: 1rem;
+    margin-right: 0.1rem;
+	display: inline-block;
+}
+header
+{
+	height: 100%;
+	width :3.5rem;
+}
+#info {
+	width: 45%;
+	float: left;
+	margin-top:0;
+}
+
+#lyric {
+	float: left;
+	margin-top: 0rem;
+}
+#control{
+	float:none;
+	margin: 0 auto;
+}
+footer {
+    line-height: 6.8rem;
+    width: 4rem;
+    right: 0;
+    height: 100%;
+}
+footer li{
+	float: none;
+	width: 100%;
+}
+#playlist ul{
+	margin-top: 0;
+}
+.icon-jiarugedan{
+	font-size: 2rem;
+	float: right;
+	margin-right: 1rem;
+}
+.icon-yichu{
+	font-size: 2rem;
+	float: right;
+	margin-right: 4.5rem;
+}
+#search ul,#playlist ul{
+ 	padding-bottom: 0;
+}
+.search-group{
+	width: 70%;
+}

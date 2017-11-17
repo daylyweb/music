@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.daylyweb.music.dao.ZanDao" >
+  
+  <resultMap id="BaseResultMap" type="com.daylyweb.music.mapper.Zan" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="device" property="device" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <cache />
+  
+  <sql id="Base_Column_List" >
+    id, ip, device, time
+  </sql>
+  
+<!--    分页查询  start和limit为0时查询全部
+  <select id="select" parameterType="Map" resultMap="BaseResultMap" useCache="false">
+  	select SQL_CALC_FOUND_ROWS * from log_zan order by time desc
+    <if test="start >=0 and limit>0" >
+    limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+    </if>
+  </select> -->
+  
+  <!-- 模糊查询 -->
+  <select id="select" parameterType="Map" resultMap="BaseResultMap" useCache="false">
+  	select SQL_CALC_FOUND_ROWS * from log_zan 
+  	<if test="keyword!=null or timestart!=null or timeend!=null">
+  		where
+  		<if test="keyword!=null">CONCAT_WS("",ip,device) LIKE CONCAT("%",#{keyword,jdbcType=CHAR},"%")</if>
+  		<if test="keyword!=null and timestart!=null">and</if>
+  		<if test="timestart!=null"> time <![CDATA[>]]>#{timestart,jdbcType=TIMESTAMP}</if>
+  		<if test="timestart!=null and timeend!=null">and</if>
+  		<if test="timeend!=null">time <![CDATA[<]]> #{timeend,jdbcType=TIMESTAMP}</if>
+  	</if>
+		order by time desc
+  	<if test="start >=0 and limit>0" >
+    	limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <!-- 获取上次查询的总数 -->
+  <select id="getLastCount" useCache="false" resultType="java.lang.Integer">
+	  	SELECT FOUND_ROWS()
+  </select>
+  
+  <!-- 批量删除 字符串参数 'id1,id2,id3,id4,id5' -->
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from log_zan where id in(${_parameter})
+  </delete>
+  
+  <!-- 删除全部 -->
+  <update id="deleteAll">
+		truncate log_zan
+  </update>
+  
+  <!-- 插入数据 -->
+  <insert id="insert" parameterType="com.daylyweb.music.mapper.Zan" >
+    insert into log_zan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="device != null" >
+        device,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="device != null" >
+        #{device,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+</mapper>
