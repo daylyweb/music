@@ -4,10 +4,21 @@
 		<property name="LOG_HOME">${log4j:configParentLocation}/../../logs</property>
 	</properties>
 	<Loggers>
+	
+		<!-- 记录spring的异常日志 -->
 		<logger name="org.spring" level="ERROR" additivity="false">
-            <AppenderRef ref="Console" />
             <AppenderRef ref="spring" />
         </logger>
+        <logger name="org.springframework" level="ERROR" additivity="false">
+            <AppenderRef ref="spring" />
+        </logger>
+        <logger name="org.springframework.security.oauth2" level="ERROR" additivity="false">
+            <AppenderRef ref="spring" />
+        </logger>
+        <logger name="org.springframework.security" level="ERROR" additivity="false">
+            <AppenderRef ref="spring" />
+        </logger>
+        
 		<Logger name="com.daylyweb.music" level="INFO" additivity="false">
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="debug" />

@@ -89,9 +89,10 @@ public class MusicUtil extends Exception{
 				List<Music> list = this.getMusic(page, 30);
 				size=list.size();
 				musics.addAll(list);
+				if(size<30) return musics;
 				page++;
-		} while(size==30);
-		return musics;
+		} while(true);
+		
 	}
 	
 	/**   
@@ -292,7 +293,7 @@ public class MusicUtil extends Exception{
 	}
 	
 	public interface Insert2DB{
-			public void insert(List list);
+			public int insert(List list);
 	}
 }
 

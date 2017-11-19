@@ -71,11 +71,11 @@
                         elem:"#zantable",
                         cols:[[
                             {checkbox:true},
-                            {field: 'id', title: 'ID', width: 40,align:'center'},
-                            {field: 'ip', title: 'IP', width: 140,align:'center'},
-                            {field: 'device', title: '设备', width:600,align:'center'},
-                            {field: 'time', title: '时间', width: 180,align:'center',sort:true},
-                            {field: 'right', title:'操作',width:70, align:'center',toolbar:'#zantoolbar'}
+                            {field: 'id', title: 'ID',width:'5%',align:'center'},
+                            {field: 'ip', title: 'IP',width:'15%', align:'center'},
+                            {field: 'device', title: '设备',width:'53%', align:'center'},
+                            {field: 'time', title: '时间',width:'15%', align:'center',sort:true},
+                            {field: 'right', title:'操作',width:'7%',align:'center',toolbar:'#zantoolbar'}
                         ]],
                         page: true,
                         id: 'zan',
@@ -105,13 +105,13 @@
                         elem:"#musictable",
                         cols:[[
                             {checkbox:true},
-                            {field: 'songname', title: '歌曲名', width:120,align:'center'},
-                            {field: 'singer', title: '歌手', width: 150,align:'center'},
-                            {field: 'albumname', title:'专辑名',width:150, align:'center'},
-                            {field: 'keyword', title:'搜索关键词',width:120, align:'center'},
-                            {field: 'songid', title: '歌曲id', width: 120,align:'center',sort:true},
-                            {field: 'songmid', title: '歌曲mid', width: 150,align:'center'},
-                            {field: 'right', title:'操作',width:200, align:'center', toolbar:'#musictoolbar'}
+                            {field: 'songname', title: '歌曲名', minWidth:155,width:'13.3%',align:'center'},
+                            {field: 'singer', title: '歌手', minWidth:155,width:'13.3%',align:'center'},
+                            {field: 'albumname', title:'专辑名',minWidth:155,width:'13.3%', align:'center'},
+                            {field: 'keyword', title:'搜索关键词', minWidth:155,width:'13.3%',align:'center'},
+                            {field: 'songid', title: '歌曲id',minWidth:105,width:'11%',align:'center',sort:true},
+                            {field: 'songmid', title: '歌曲mid', minWidth:150,width:'12%',align:'center'},
+                            {field: 'right', title:'操作',minWidth:200,width:'18%',align:'center', toolbar:'#musictoolbar'}
                         ]],
                         page: true,
                         id: 'music',
@@ -141,13 +141,13 @@
                         elem:"#commendtable",
                         cols:[[
                             {checkbox:true},
-                            {field: 'songname', title: '歌曲名', width:120,align:'center',},
-                            {field: 'singer', title: '歌手', width: 150,align:'center',},
-                            {field: 'albumname', title:'专辑名',width:150, align:'center'},
-                            {field: 'keyword', title:'搜索关键词',width:120, align:'center'},
-                            {field: 'songid', title: '歌曲id', width: 120,align:'center',sort:true},
-                            {field: 'songmid', title: '歌曲mid', width: 150,align:'center'},
-                            {fixed: 'right', title:'操作',width:140, align:'center', toolbar:'#commendtoolbar'}
+                            {field: 'songname', title: '歌曲名', minWidth:155,width:'13.5%',align:'center',},
+                            {field: 'singer', title: '歌手', minWidth:155,width:'13.5%',align:'center',},
+                            {field: 'albumname', title:'专辑名',minWidth:155,width:'13.5%',align:'center'},
+                            {field: 'keyword', title:'搜索关键词',minWidth:155,width:'13.5%',align:'center'},
+                            {field: 'songid', title: '歌曲id',minWidth:155,width:'13.5%',align:'center',sort:true},
+                            {field: 'songmid', title: '歌曲mid', minWidth:155,width:'13.5%',align:'center'},
+                            {field: 'right', title:'操作',minWidth:130,width:'13.5%',align:'center', toolbar:'#commendtoolbar'}
                         ]],
                         page: true,
                         id: 'commend',
@@ -180,13 +180,13 @@
                         elem:"#feedbacktable",
                         cols:[[
                             {checkbox:true},
-                            {field: 'id', title: 'ID', width:80,align:'center'},
-                            {field: 'name', title: '姓名', width: 90,align:'center'},
-                            {field: 'concat', title:'联系方式',width:120, align:'center'},
-                            {field: 'device', title:'设备型号',width:150, align:'center'},
-                            {field: 'content', title: '反馈内容', width: 360,align:'center'},
-                            {field: 'time', title: '反馈时间', width: 180,align:'center'},
-                            {field: 'right', title:'操作',width:100, align:'center', toolbar:'#feedbacktoolbar'}
+                            {field: 'id', title: 'ID',minWidth:60,width:'5%',align:'center'},
+                            {field: 'name', title: '姓名', minWidth:115,width:'10%',align:'center'},
+                            {field: 'concat', title:'联系方式',minWidth:115,width:'10%',align:'center'},
+                            {field: 'device', title:'设备型号',minWidth:120,width:'10%',align:'center'},
+                            {field: 'content', title: '反馈内容', minWidth:430,width:'38%',align:'center'},
+                            {field: 'time', title: '反馈时间', minWidth:170,width:'15%',align:'center'},
+                            {field: 'right', title:'操作',minWidth:80,width:'7%',align:'center', toolbar:'#feedbacktoolbar'}
                         ]],
                         page: true,
                         id: 'feedback',
@@ -219,9 +219,9 @@
                         elem:"#infotable",
                         cols:[[
                             {checkbox:true},
-                            {field: 'id', title: 'ID', width:80,align:'center'},
-                            {field: 'info', title: '信息', width:400,align:'center'},
-                            {field: 'time', title: '记录时间', width: 180,align:'center'},
+                            {field: 'id', title: 'ID',minWidth:60,width:'10%', align:'center'},
+                            {field: 'info', title: '信息', minWidth:400,width:'63%',align:'center'},
+                            {field: 'time', title: '记录时间', minWidth:170,width:"20%",align:'center'},
                         ]],
                         page: true,
                         id: 'info',
@@ -537,7 +537,7 @@
                         case '8':return;
                         case '9':addTab(elem.text(),document.getElementById('aboutcontent').innerText,layid,null,null);break;
                         case '10':addTab(elem.text(),document.getElementById('changepasscontent').innerText,layid,null,null);break;
-                        default:layer.msg('未定义操作！');
+                        default:return;//layer.msg('未定义操作！');
                     }
                     
                 }
@@ -830,7 +830,6 @@
                     closeSlide(this,slide);
                     flag=!flag;
                 }
-                
            }
 
            document.onclick=function(){

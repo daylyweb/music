@@ -42,15 +42,15 @@ public class AllTest {
 	@Autowired
 	private LogService ls;
 	
-	Logger logger = LogManager.getLogger("info");
+	//Logger logger = LogManager.getLogger("info");
 
 	public void test() {
 		List<Music> list = null;
 		Long starttime = System.currentTimeMillis();
 		try {
 			mu.setInsert2DB(new Insert2DB() {
-				public void insert(List list) {
-					ms.insert(list);
+				public int insert(List list) {
+					return ms.insert(list);
 				}
 			});
 			list = mu.getAllMusic("白马照青衣");
@@ -121,7 +121,6 @@ public class AllTest {
 		}
 		
 	}
-	@Test
 	public void insert() {
 		System.out.println(58  >> 2);
 		Music m1 = new Music(102973042,"002NBfDi3QPu46","琴师","双笙","笙声不息","001Mf4Ic1aNYYK","Y","琴师");
@@ -135,4 +134,6 @@ public class AllTest {
 		System.out.println(ms.keywordIsExist("琴师"));
 		System.out.println(ms.keywordIsExist("是"));
 	}
+	@Test
+	public void test3() {}
 }

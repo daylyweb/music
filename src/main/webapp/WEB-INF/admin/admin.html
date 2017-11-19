@@ -1,4 +1,4 @@
-<#assign ctx=request.contextPath />
+<#assign ctx=request.requestUri />
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <base id="ctx" href="${ctx}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="${ctx}/js/lib/layui/css/layui.css">
+        <link rel="stylesheet" type="text/css" href="${ctx}/../js/lib/layui/css/layui.css">
         <link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_469747_dr33rk7q8xx8yqfr.css">
         <style type="text/css">
             header{
@@ -50,10 +50,10 @@
                 background-color: #1da24b!important;
             }
             #openleft{
-                width: 40px;
-                height: 40px;
+                width: 50px;
+                height: 50px;
                 display: inline-block;
-                line-height: 40px;
+                line-height: 50px;
                 background-color: #009688;
                 color: #fff;
                 white-space: nowrap;
@@ -179,7 +179,7 @@
                             <a href="javascript:;"><img src="${login.head}" class="layui-nav-img">${login.nickname}</a>
                             <dl class="layui-nav-child" style="z-index: 10000000;top: 60px;">
                                 <dd lay-id='10'><a href="javascript:;">修改密码</a></dd>
-                                <dd><a href="${ctx}/admin/out">退出</a></dd>
+                                <dd><a href="${ctx}/out">退出</a></dd>
                             </dl>
                         </li>
                     </ul>
@@ -219,7 +219,7 @@
             <!-- 左侧导航条结束 -->
 
             <!-- 右侧主体开始 -->
-            <div class="layui-body">
+            <div class="layui-body" style="z-index:-111111">
                 <div class="layui-tab  layui-tab-brief" lay-filter="tab" lay-allowclose="true" style="margin-top: 0">
                     <ul class="layui-tab-title" style="background-color: whitesmoke">
                         <li class="layui-this" lay-id="1">首页</li>
@@ -324,7 +324,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>当前版本</td>
-                                                        <td>1.0.0</td>
+                                                        <td>0.0.1</td>
                                                     </tr>
                                                     <tr>
                                                         <td>开发作者</td>
@@ -384,40 +384,39 @@
                         </div>
                     </div>
                 </div>
-                <div class="layui-footer">
+                <div class="layui-footer" style="z-index:123456">
                     @<a href="http://daylyweb.com ">小只个人站点 - daylyweb.com</a>  ©丶Tik
                 </div>
             </div>
             <!-- 右侧主体结束 -->
         </div>
-            
         <div id="openleft">
             <i class="layui-icon">&#xe602;</i>
         </div>
     </body>
     
     <script type="text/html" id="musictoolbar">
-        <a class="layui-btn layui-btn-small layui-btn-normal" title="查看音乐相关信息" lay-event="view">查看</a>
+        <a class="layui-btn layui-btn-sm layui-btn-normal" title="查看音乐相关信息" lay-event="view">查看</a>
         {{#  if(d.commend == 'N'){ }}
-            <a class="layui-btn layui-btn-small" id='changebtn' title="将本首音乐设置为推荐" lay-event="setCommend">推荐</a>
+            <a class="layui-btn layui-btn-sm" id='changebtn' title="将本首音乐设置为推荐" lay-event="setCommend">推荐</a>
         {{#  } }}
         {{#  if(d.commend == 'Y'){ }}
-            <a class="layui-btn layui-btn-small" id='changebtn' title="取消本音乐的推荐" lay-event="unCommend">取推</a>
+            <a class="layui-btn layui-btn-sm" id='changebtn' title="取消本音乐的推荐" lay-event="unCommend">取推</a>
         {{#  } }}
-        <a class="layui-btn layui-btn-danger layui-btn-small" title="删除本首音乐数据" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-danger layui-btn-sm" title="删除本首音乐数据" lay-event="del">删除</a>
     </script>
 
     <script type="text/html" id="commendtoolbar">
-        <a class="layui-btn layui-btn-small layui-btn-normal" title="查看音乐相关信息" lay-event="view">查看</a>
-        <a class="layui-btn layui-btn-small" title="取消本音乐的推荐" lay-event="unCommend">取推</a>
+        <a class="layui-btn layui-btn-sm layui-btn-normal" title="查看音乐相关信息" lay-event="view">查看</a>
+        <a class="layui-btn layui-btn-sm" title="取消本音乐的推荐" lay-event="unCommend">取推</a>
     </script>
 
     <script type="text/html" id="zantoolbar">
-        <a class="layui-btn layui-btn-danger layui-btn-small" title="删除本行数据" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-danger layui-btn-sm" title="删除本行数据" lay-event="del">删除</a>
     </script>
 
     <script type="text/html" id="feedbacktoolbar">
-        <a class="layui-btn layui-btn-danger layui-btn-small" title="删除本行数据" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-danger layui-btn-sm" title="删除本行数据" lay-event="del">删除</a>
     </script>
 
     <script type="text/html" id="musiccontent">
@@ -622,7 +621,7 @@
         </div>
     </script>
 
-	<script type="text/javascript" src="${ctx}/js/config.js"></script>
-    <script type="text/javascript" src="${ctx}/js/lib/layui/layui.js"></script>
-    <script type="text/javascript" src="${ctx}/js/admin.js"></script>
+	<script type="text/javascript" src="${ctx}/../js/config.js"></script>
+    <script type="text/javascript" src="${ctx}/../js/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="${ctx}/../js/admin.js"></script>
 </html>

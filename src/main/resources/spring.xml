@@ -27,6 +27,9 @@
     <!-- AOP注解 -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
     
+    <!-- 引入外部属性文件 包含了数据源等一些配置 -->
+    <context:property-placeholder location="classpath*:db.properties" />
+     
     <!-- 引入 mybatis整合配置文件 -->
-     <import resource="classpath:spring-mybatis.xml"/>
+    <import resource="classpath:spring-mybatis.xml"/>
 </beans>

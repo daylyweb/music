@@ -3,11 +3,11 @@
  */
 	var ctx = document.getElementById("ctx").href;
 	var config = {
-			zanurl:ctx+"/admin/api/zan",
-			feedbackurl:ctx+"/admin/api/feedback",
-			infourl:ctx+"/admin/api/info",
-			musicurl:ctx+"/admin/api/music",
-			commendurl:ctx+"/commend",
-			userurl:ctx+"/admin/api/user",
-			outurl:ctx+"/admin/out"
+			zanurl:ctx+"/api/zan",
+			feedbackurl:ctx+"/api/feedback",
+			infourl:ctx+"/api/info",
+			musicurl:ctx+"/api/music",
+			commendurl:ctx+"/../commend",
+			userurl:ctx+"/api/user",
+			outurl:ctx+"/out"
 	}

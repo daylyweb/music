@@ -5,7 +5,7 @@
 	 <artifactId>music</artifactId>
 	 <packaging>war</packaging>
 	 <version>0.0.1-SNAPSHOT</version>
-	 <name>music Maven Webapp</name>
+	 <name>music.daylyweb.com</name>
 	 <url>http://maven.apache.org</url>
 	 <dependencies>
 	 
@@ -204,21 +204,21 @@
 	   <finalName>music</finalName>
 	   <plugins>  
 	       <plugin>
-	       	<groupId>org.codehaus.mojo</groupId>
-	       	<artifactId>tomcat-maven-plugin</artifactId>
-	       	<version>1.1</version>
-	       	<configuration>  
-	               <warFile>target/${project.build.finalName}.war</warFile>  
-	               <server>tomcat</server>  
-	               <url>${deploy.url}</url> 
-	               <username>${deploy.username}</username>
-	               <password>${deploy.password}</password>
-	               <port>${deploy.port}</port>
-	               <path>/${project.build.finalName}</path>
-	               <charset>UTF-8</charset>
-	               <encoding>UTF-8</encoding>
-	               <update>true</update>
-	           </configuration> 
+		       	<groupId>org.codehaus.mojo</groupId>
+		       	<artifactId>tomcat-maven-plugin</artifactId>
+		       	<version>1.1</version>
+		       	<configuration>  
+		               <warFile>target/${project.build.finalName}.war</warFile>  
+		               <server>tomcat</server>  
+		               <url>${deploy.url}</url> 
+		               <username>${deploy.username}</username>
+		               <password>${deploy.password}</password>
+		               <port>${deploy.port}</port>
+		               <path>/${project.build.finalName}</path>
+		               <charset>UTF-8</charset>
+		               <encoding>UTF-8</encoding>
+		               <update>true</update>
+		         </configuration> 
 	       </plugin>
 	       
 	       <plugin>  
@@ -230,14 +230,25 @@
 		                  <source>1.8</source>
 		                  <target>1.8</target>
 		         </configuration>
-<!-- 				 <configuration>  
-			        <verbose>true</verbose>  
-			        <fork>true</fork>  
-			        <executable>${JAVA1.8_HOME}/bin/javac</executable>  
-			    </configuration> -->
 			</plugin>
-				
+			
+			<!-- install 跳过test -->
+			<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-surefire-plugin</artifactId>
+		        <configuration>
+		          <skip>true</skip>
+		        </configuration>
+		    </plugin>
 		</plugins>
+		
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		
 	</build>
   
  	<properties>
@@ -260,13 +271,17 @@
 	            <deploy.username>xiaozhi</deploy.username>
 	            <deploy.password>xiaozhi</deploy.password> 
 	            <deploy.port>80</deploy.port>
+	            <!-- 根据环境配置db.properties -->
+	            <db.url>jdbc:mysql://localhost:3306/music?serverTimezone=GMT%2B8<![CDATA[&]]>userUnicode=true<![CDATA[&]]>characterEncoding=utf-8</db.url>
+	            <db.username>root</db.username>
+	            <db.password>root</db.password>
 	        </properties>  
 	        <activation>  
 	            <activeByDefault>true</activeByDefault>  
 	        </activation>  
 	    </profile>  
 	
-	    <!--  正式上线环境-->  
+	    <!--  daylyweb上线环境-->  
 	    <profile>  
 	        <id>pro</id>  
 	        <properties>  
@@ -275,6 +290,10 @@
 	            <deploy.username>xiaozhi</deploy.username>
 	            <deploy.password>xiaozhi</deploy.password>
 	            <deploy.port>80</deploy.port>
+	            <!-- 根据环境配置db.properties -->
+	            <db.url>jdbc:mysql://localhost:3307/music?serverTimezone=GMT%2B8<![CDATA[&]]>userUnicode=true<![CDATA[&]]>characterEncoding=utf-8</db.url>
+	            <db.username>daylyweb</db.username>
+	            <db.password>daylyweb.com</db.password>
 	        </properties>  
 	    </profile>
 	</profiles>

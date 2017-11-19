@@ -18,10 +18,14 @@
     },
     "browser-extension": {
       
+    },
+    "angular1": {
+      
     }
   },
   "libs": [
     "browser",
-    "jquery"
+    "jquery",
+    "ecma5"
   ]
 }

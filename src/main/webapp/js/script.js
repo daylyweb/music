@@ -329,7 +329,7 @@
 			
 			//音乐搜索
 			var MusicSearch = function(){
-				var keyword = $("input[type=search]").val();
+				var keyword = this.firstElementChild.value || $("input[type=search]").val();
 				if(keyword =='' || null){
 					msg('请输入需要搜索的内容！');
 					return;
@@ -370,12 +370,9 @@
 
 			//搜索按钮点击
 			$("#searchbtn").on('click',MusicSearch);
-			$(".search-group").bind("search",MusicSearch);
-			$(".search-group").on("keypress",function(){
-				if(event.keyCode==13){  
-					MusicSearch();
-				}
-			})
+			$(".search-group").bind("search",function(){
+				MusicSearch.call(this);
+			});
 			
 			//搜索结果页点击播放
 			var lievent = function(){

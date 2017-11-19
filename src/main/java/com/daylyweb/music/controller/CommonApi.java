@@ -54,8 +54,8 @@ public class CommonApi {
 		mu.setKeyword(keyword);
 		if (ms.keywordIsExist(keyword)==false) {
 			mu.setInsert2DB(new Insert2DB() {
-				public void insert(List list) {
-					ms.insert(list);
+				public int insert(List list) {
+					return ms.insert(list);
 				}
 			});
 		}

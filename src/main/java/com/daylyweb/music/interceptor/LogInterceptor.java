@@ -30,10 +30,12 @@ public class LogInterceptor {
 
 	static Logger logger = LogManager.getLogger(LogInterceptor.class);
 	HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-	String loginadmin = ((Admin)(request.getSession().getAttribute("login"))).getNickname();
+	Admin loginadmin = (Admin)(request.getSession().getAttribute("login"));
+	String who = loginadmin==null?"":loginadmin.getNickname();
+	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.MusicService.getMusic(..))",returning="result")
 	public void afterGetMusic(List result) {
-		logger.info("管理员："+loginadmin+" 取出了"+result.size()+"条音乐列表...");
+		logger.info("管理员："+who+" 取出了"+result.size()+"条音乐列表...");
 	}
 	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.MusicService.insert(..))",returning="result")
@@ -43,17 +45,17 @@ public class LogInterceptor {
 	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.MusicService.setCommend(..))",returning="result")
 	public void afterSetCommend(int result) {
-		logger.info("管理员："+loginadmin+" 修改了"+result+"条音乐的推荐状态...");
+		logger.info("管理员："+who+" 修改了"+result+"条音乐的推荐状态...");
 	}
 	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.MusicService.deleteByIds(..))",returning="result")
 	public void afterDeleteByIds(int result) {
-		logger.info("管理员："+loginadmin+" 从库里删除了"+result+"条音乐...");
+		logger.info("管理员："+who+" 从库里删除了"+result+"条音乐...");
 	}
 	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.LogService.getZan(..))",returning="result")
 	public void afterGetZan(List result) {
-		logger.info("管理员："+loginadmin+" 取出了"+result.size()+"条点赞记录...");
+		logger.info("管理员："+who+" 取出了"+result.size()+"条点赞记录...");
 	}
 	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.LogService.insertZan(..))",returning="result")
@@ -63,12 +65,12 @@ public class LogInterceptor {
 	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.LogService.delZan(..))",returning="result")
 	public void afterDelZan(int result) {
-		logger.info("管理员："+loginadmin+" 从库里删除了"+result+"条点赞记录...");
+		logger.info("管理员："+who+" 从库里删除了"+result+"条点赞记录...");
 	}
 	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.LogService.getFeedBack(..))",returning="result")
 	public void afterGetFeedBack(List result) {
-		logger.info("管理员："+loginadmin+" 取出了"+result.size()+"条反馈记录...");
+		logger.info("管理员："+who+" 取出了"+result.size()+"条反馈记录...");
 	}
 	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.LogService.insertFeedBack(..))",returning="result")
@@ -78,6 +80,6 @@ public class LogInterceptor {
 	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.LogService.delFeedBack(..))",returning="result")
 	public void afterDelFeedBack(int result) {
-		logger.info("管理员："+loginadmin+" 从库里删除了"+result+"条反馈记录...");
+		logger.info("管理员："+who+" 从库里删除了"+result+"条反馈记录...");
 	}
 }

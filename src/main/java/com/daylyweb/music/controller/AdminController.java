@@ -89,7 +89,7 @@ public class AdminController {
 		session.removeAttribute("login");
 		session.removeAttribute("lasttime");
 		session.removeAttribute("lastip");
-		return "redirect:/login";
+		return "redirect:admin/admin";
 	}
 	
 	@ResponseBody
