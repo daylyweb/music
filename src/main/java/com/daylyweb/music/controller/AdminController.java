@@ -51,7 +51,7 @@ public class AdminController {
 	public ModelAndView admin(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		String viewname="admin/login";
-		Admin login = (Admin) request.getSession().getAttribute("login");
+		Admin login = (Admin) (request.getSession().getAttribute("login"));
 		if (login!=null ) {
 			if(login.getPassword().equals(as.getByUserName(login.getUsername()).getPassword())){
 				viewname="admin/admin";
@@ -89,7 +89,7 @@ public class AdminController {
 		session.removeAttribute("login");
 		session.removeAttribute("lasttime");
 		session.removeAttribute("lastip");
-		return "redirect:admin/admin";
+		return "redirect:/admin";
 	}
 	
 	@ResponseBody

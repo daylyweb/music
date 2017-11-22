@@ -98,7 +98,7 @@
 			<version>1.0</version>
 		</dependency> 
 		
-		   <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 		    <groupId>mysql</groupId>
 		    <artifactId>mysql-connector-java</artifactId>
@@ -291,7 +291,7 @@
 	            <deploy.password>xiaozhi</deploy.password>
 	            <deploy.port>80</deploy.port>
 	            <!-- 根据环境配置db.properties -->
-	            <db.url>jdbc:mysql://localhost:3307/music?serverTimezone=GMT%2B8<![CDATA[&]]>userUnicode=true<![CDATA[&]]>characterEncoding=utf-8</db.url>
+	            <db.url>jdbc:mysql://localhost:3306/music?serverTimezone=GMT%2B8<![CDATA[&]]>userUnicode=true<![CDATA[&]]>characterEncoding=utf-8</db.url>
 	            <db.username>daylyweb</db.username>
 	            <db.password>daylyweb.com</db.password>
 	        </properties>  

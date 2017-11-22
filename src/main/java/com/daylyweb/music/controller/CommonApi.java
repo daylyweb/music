@@ -28,6 +28,13 @@ import com.daylyweb.music.service.MusicService;
 import com.daylyweb.music.utils.MusicUtil;
 import com.daylyweb.music.utils.MusicUtil.Insert2DB;
 
+/**   
+ * @ClassName:  CommonApi   
+ * @Description:	前台api
+ * @author: 丶Tik 
+ * @date:   2017年11月22日 下午1:29:37     
+ *  
+ */ 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 public class CommonApi {
@@ -138,6 +145,12 @@ public class CommonApi {
 		return map;
 	}
 	
+	/**   
+	 * @Title: insertZan   
+	 * @Description: 添加点赞记录
+	 * @param request
+	 * @return 
+	 */
 	@ResponseBody
 	@RequestMapping(value="/zan",method=RequestMethod.POST)
 	public Map insertZan(HttpServletRequest request) {
@@ -156,6 +169,15 @@ public class CommonApi {
 		return map;
 	}
 	
+	/**   
+	 * @Title: insertFeedBack   
+	 * @Description: 添加反馈记录  
+	 * @param name 姓名
+	 * @param concat 联系方式
+	 * @param device 设备型号
+	 * @param content 反馈内容
+	 * @return 
+	 */
 	@ResponseBody
 	@RequestMapping(value="/feedback",method=RequestMethod.POST)
 	public Map insertFeedBack(String name,String concat,String device,String content) {

@@ -6,6 +6,8 @@
     
   	<display-name>music</display-name>
   	
+
+  	
   	<!-- 配置ContextLoaderListener表示，该工程要以spring的方式启动。启动时会默认在/WEB-INF目录下查找applicationContext.xml作为spring容器的配置文件，该文件里可以初始化一些bean -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -14,6 +16,11 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath*:spring.xml</param-value>
     </context-param>
+    
+    <!--  防止Spring内存溢出监听器  --> 
+    <listener>  
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>  
+    </listener>
     
 	<!--  字符集过滤器  --> 
     <filter>
@@ -58,10 +65,7 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     
-	<!--  防止Spring内存溢出监听器  --> 
-    <listener>  
-        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>  
-    </listener>
+
     
      <welcome-file-list>
     	<welcome-file>index.html</welcome-file>
