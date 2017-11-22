@@ -27,6 +27,11 @@
     </if>
   </select>
   
+    <!-- 获取上次查询的总数 -->
+  <select id="getLastCount" useCache="false" resultType="java.lang.Integer">
+	  	SELECT FOUND_ROWS()
+  </select>
+  
   <!-- 删除全部 -->
   <update id="deleteAll" >
 	truncate log_info

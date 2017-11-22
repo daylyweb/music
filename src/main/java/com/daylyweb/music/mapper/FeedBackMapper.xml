@@ -34,6 +34,12 @@
     </if>
   </select>
   
+  <!-- 获取上次查询的总数 -->
+  <select id="getLastCount" useCache="false" resultType="java.lang.Integer">
+	  	SELECT FOUND_ROWS()
+  </select>
+
+  
   <!-- 批量删除 字符串参数 'id1,id2,id3,id4,id5' -->
   <delete id="delete" parameterType="java.lang.String" >
     delete from log_feedback where id in (${_parameter})

@@ -35,7 +35,7 @@ public class LogInterceptor {
 	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.MusicService.getMusic(..))",returning="result")
 	public void afterGetMusic(List result) {
-		logger.info("管理员："+who+" 取出了"+result.size()+"条音乐列表...");
+		logger.info("管理员："+who+" 取出了"+(result.size()-1)+"条音乐列表...");
 	}
 	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.MusicService.insert(..))",returning="result")
@@ -55,7 +55,7 @@ public class LogInterceptor {
 	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.LogService.getZan(..))",returning="result")
 	public void afterGetZan(List result) {
-		logger.info("管理员："+who+" 取出了"+result.size()+"条点赞记录...");
+		logger.info("管理员："+who+" 取出了"+(result.size()-1)+"条点赞记录...");
 	}
 	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.LogService.insertZan(..))",returning="result")
@@ -70,7 +70,7 @@ public class LogInterceptor {
 	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.LogService.getFeedBack(..))",returning="result")
 	public void afterGetFeedBack(List result) {
-		logger.info("管理员："+who+" 取出了"+result.size()+"条反馈记录...");
+		logger.info("管理员："+who+" 取出了"+(result.size()-1)+"条反馈记录...");
 	}
 	
 	@AfterReturning(pointcut="execution(* com.daylyweb.music.service.LogService.insertFeedBack(..))",returning="result")

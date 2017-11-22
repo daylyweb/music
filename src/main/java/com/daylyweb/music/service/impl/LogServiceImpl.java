@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import com.daylyweb.music.mapper.FeedBack;
 import com.daylyweb.music.mapper.Zan;
 import com.daylyweb.music.service.LogService;
 import com.daylyweb.music.service.MusicService;
+import com.mysql.cj.api.Session;
 
 /**   
  * @ClassName:  LogServiceImpl   
@@ -32,8 +35,12 @@ public class LogServiceImpl implements LogService {
 	private FeedBackDao fbd;
 	@Autowired
 	private InfoDao infodao;
+	@Autowired
+	private SqlSessionFactory sqlSessionFactory;
 	
 	public List getZan(int page,int limit,long longstart,long longend,String keyword) {
+		SqlSession session = sqlSessionFactory.openSession(false);
+		ZanDao zDao = session.getMapper(ZanDao.class);
 		Map<String,Object> map = new HashMap<String,Object>();
 		if(page>0 && limit >0){
 			int start = (page-1)*limit;
@@ -45,7 +52,10 @@ public class LogServiceImpl implements LogService {
 			map.put("timeend", new Date(longend));
 		}
 		map.put("keyword", keyword);
-		return zd.select(map);
+		List list = zDao.select(map);
+		list.add(zDao.getLastCount());
+		session.close();
+		return list;
 	}
 
 	public int insertZan(Zan zan) {
@@ -61,6 +71,8 @@ public class LogServiceImpl implements LogService {
 	}
 	
 	public List getFeedBack(int page,int limit,long longstart,long longend,String keyword) {
+		SqlSession session = sqlSessionFactory.openSession(false);
+		FeedBackDao fDao = session.getMapper(FeedBackDao.class);
 		Map<String,Object> map = new HashMap<String,Object>();
 		if(page>0 && limit >0){
 			int start = (page-1)*limit;
@@ -72,7 +84,10 @@ public class LogServiceImpl implements LogService {
 			map.put("timeend", new Date(longend));
 		}
 		map.put("keyword", keyword);
-		return fbd.select(map);
+		List list = fDao.select(map);
+		list.add(fDao.getLastCount());
+		session.close();
+		return list;
 	}
 
 	public int insertFeedBack(FeedBack feedback) {
@@ -88,6 +103,8 @@ public class LogServiceImpl implements LogService {
 	}
 
 	public List getInfo(int page,int limit,long longstart,long longend,String keyword) {
+		SqlSession session = sqlSessionFactory.openSession(false);
+		InfoDao iDao = session.getMapper(InfoDao.class);
 		Map<String,Object> map = new HashMap<String,Object>();
 		if(page>0 && limit >0){
 			int start = (page-1)*limit;
@@ -99,7 +116,10 @@ public class LogServiceImpl implements LogService {
 			map.put("timeend", new Date(longend));
 		}
 		map.put("keyword", keyword);
-		return infodao.select(map);
+		List list = iDao.select(map);
+		list.add(iDao.getLastCount());
+		session.close();
+		return list;
 	}
 
 	public int delInfo(String ids) {

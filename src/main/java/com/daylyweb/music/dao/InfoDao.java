@@ -7,5 +7,8 @@ import com.daylyweb.music.mapper.Info;
 
 public interface InfoDao {
 	List<Info> select(Map map);
+	
+	int getLastCount();
+	
 	int deleteAll();
 }

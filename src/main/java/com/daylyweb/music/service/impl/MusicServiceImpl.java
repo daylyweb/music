@@ -3,6 +3,7 @@ package com.daylyweb.music.service.impl;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.daylyweb.music.dao.MusicDao;
 import com.daylyweb.music.mapper.Music;
@@ -23,6 +25,8 @@ public class MusicServiceImpl implements MusicService{
 
 	@Autowired
 	private MusicDao musicdao;
+	@Autowired
+	private SqlSessionFactory sqlSessionFactory;
 	
 	public int insert(Music music) {
 		return musicdao.insert(music);
@@ -41,21 +45,29 @@ public class MusicServiceImpl implements MusicService{
 	}
 
 	public List<Object> getMusic(int page,int limit,String keyword) {
+		SqlSession session = sqlSessionFactory.openSession(false);
+		MusicDao md = session.getMapper(MusicDao.class);
 		Map<String,Object> map = new HashMap<String, Object>();
 		if(page>0 && limit >0){
 			int start = (page-1)*limit;
 			map.put("start", start);
 			map.put("limit", limit);
 		}
+		List list = new ArrayList<>();
 		if(StringUtils.isNotEmpty(keyword)) {
 			map.put("keyword", keyword);
-			return musicdao.fuzzyQuery(map);
+			list =  md.fuzzyQuery(map);
 		} else {
-			return musicdao.select(map);
+			list =  md.select(map);
 		}
+		list.add(md.getLastCount());
+		session.close();
+		return list;
 	}
 
 	public List<Object> getCommend(int page,int limit,String commend,String keyword) {
+		SqlSession session = sqlSessionFactory.openSession(false);
+		MusicDao md = session.getMapper(MusicDao.class);
 		Map<String,Object> map = new HashMap<String, Object>();
 		if(StringUtils.isNotEmpty(commend)) map.put("commend", commend);
 		if(page>0 && limit >0){
@@ -63,12 +75,16 @@ public class MusicServiceImpl implements MusicService{
 			map.put("start", start);
 			map.put("limit", limit);
 		}
+		List list = new ArrayList<>();
 		if(StringUtils.isNotEmpty(keyword)) {
 			map.put("keyword", keyword);
-			return musicdao.fuzzyQuery(map);
+			list = md.fuzzyQuery(map);
 		} else {
-			return musicdao.select(map);
+			list = md.select(map);
 		}
+		list.add(md.getLastCount());
+		session.close();
+		return list;
 	}
 	
 	public int insert(List list) {

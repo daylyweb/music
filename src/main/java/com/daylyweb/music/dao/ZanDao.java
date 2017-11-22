@@ -9,6 +9,8 @@ public interface ZanDao {
 	
 	List select(Map map);
 	
+	int getLastCount();
+	
     int delete(String ids);
 
     int deleteAll();

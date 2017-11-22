@@ -8,6 +8,8 @@ import com.daylyweb.music.mapper.FeedBack;
 public interface FeedBackDao {
 
 	List select(Map map);
+	
+	int getLastCount();
 	 
     int delete(String ids);
 

@@ -136,12 +136,13 @@ public class CommonApi {
 
 		if(list!=null && list.size()>0) {
 			map=this.setStatus(map, STATUS_CODE_SUCCESS, "success");
-			map.put("count",ms.getLastCount());
+			map.put("count",list.get(list.size()-1));
+			list.remove(list.size()-1);
+			map.put("data", list);
 		} else {
 			map=this.setStatus(map, STATUS_CODE_NOT_FOUND, "暂无推荐歌曲！");
 			map.put("count",0);
 		}
-		map.put("data", list);
 		return map;
 	}
 	
